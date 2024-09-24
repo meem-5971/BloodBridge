@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-7#qaytn+1=@-2n6vme+e0a(=9rpn@xeko-%swpxf$bmlfc+e^6
 DEBUG = True
 
 ALLOWED_HOSTS = ['*',]
-CSRF_TRUSTED_ORIGINS = ['https://*.127.0.0.1','https://bloodbridge-o2p6.onrender.com/',]
+CSRF_TRUSTED_ORIGINS = ['https://bloodbridge-o2p6.onrender.com','https://*.127.0.0.1']
 
 
 # Application definition
