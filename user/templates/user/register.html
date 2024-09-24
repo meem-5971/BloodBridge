@@ -1,0 +1,132 @@
+
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %} <!-- For crispy forms -->
+
+{% block content %}
+<div class="container">
+    <h2>Register</h2>
+		<div class="alert alert-warning" role="alert">
+			Please be careful. You cannot change your name, age, gender, and blood group later.
+	</div>
+	
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }} <!-- Display form using crispy form styling -->
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+{% endblock %}
+
+{% comment %} {% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Register</h2>
+    <form method="POST">
+        {% csrf_token %}  <!-- Important: CSRF token -->
+        <div class="mb-3">
+					<label for="username" class="form-label">Username</label>
+					<input type="text" class="form-control" id="username" name="username" value="{{ form.username.value }}">
+					<!-- Display errors for the field -->
+					{% if form.username.errors %}
+							<div class="text-danger">
+									{{ form.username.errors }}
+							</div>
+					{% endif %}
+			</div>
+
+			<!-- Email Field -->
+			<div class="mb-3">
+					<label for="email" class="form-label">Email</label>
+					<input type="email" class="form-control" id="email" name="email" value="{{ form.email.value }}">
+					{% if form.email.errors %}
+							<div class="text-danger">
+									{{ form.email.errors }}
+							</div>
+					{% endif %}
+			</div>
+
+			<!-- Phone Field -->
+			<div class="mb-3">
+					<label for="phone" class="form-label">Phone</label>
+					<input type="text" class="form-control" id="phone" name="phone" value="{{ form.phone.value }}">
+					{% if form.phone.errors %}
+							<div class="text-danger">
+									{{ form.phone.errors }}
+							</div>
+					{% endif %}
+			</div>
+
+			<!-- Age Field -->
+			<div class="mb-3">
+					<label for="age" class="form-label">Age</label>
+					<input type="number" class="form-control" id="age" name="age" value="{{ form.age.value }}">
+					{% if form.age.errors %}
+							<div class="text-danger">
+									{{ form.age.errors }}
+							</div>
+					{% endif %}
+			</div>
+
+			<!-- Gender Field -->
+			<div class="mb-3">
+					<label for="gender" class="form-label">Gender</label>
+					<select class="form-control" id="gender" name="gender">
+							<option value="male" {% if form.gender.value == 'male' %}selected{% endif %}>Male</option>
+							<option value="female" {% if form.gender.value == 'female' %}selected{% endif %}>Female</option>
+					</select>
+					{% if form.gender.errors %}
+							<div class="text-danger">
+									{{ form.gender.errors }}
+							</div>
+					{% endif %}
+			</div>
+
+			<!-- Blood Group Field -->
+			<div class="mb-3">
+					<label for="blood_group" class="form-label">Blood Group</label>
+					{{ form.blood_group }}  <!-- You can customize this field in your forms.py -->
+					{% if form.blood_group.errors %}
+							<div class="text-danger">
+									{{ form.blood_group.errors }}
+							</div>
+					{% endif %}
+			</div>
+
+			<!-- Last Donation Date Field -->
+			<div class="mb-3">
+					<label for="last_donation_date" class="form-label">Last Donation Date</label>
+					{{ form.last_donation_date }}
+					{% if form.last_donation_date.errors %}
+							<div class="text-danger">
+									{{ form.last_donation_date.errors }}
+							</div>
+					{% endif %}
+			</div>
+
+			<!-- Password Fields -->
+			<div class="mb-3">
+					<label for="password1" class="form-label">Password</label>
+					{{ form.password1 }}
+					{% if form.password1.errors %}
+							<div class="text-danger">
+									{{ form.password1.errors }}
+							</div>
+					{% endif %}
+			</div>
+
+			<div class="mb-3">
+					<label for="password2" class="form-label">Confirm Password</label>
+					{{ form.password2 }}
+					{% if form.password2.errors %}
+							<div class="text-danger">
+									{{ form.password2.errors }}
+							</div>
+					{% endif %}
+			</div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+{% endblock %} {% endcomment %}

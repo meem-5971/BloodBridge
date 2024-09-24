@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="jumbotron bg-danger">
+	<h1 class="display-4 text-white">Welcome to the BloodBridge</h1>
+	<p class="lead text-white">Connecting blood donors and recipients efficiently.</p>
+	<hr class="my-4 text-white">
+</div>
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center text-dark">Available Donors</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for donor in donors %}
+        <div class="col">
+            <div class="card h-100 border-danger">
+                <div class="card-body">
+                    <h5 class="card-title text-danger">{{ donor.username }}</h5>
+                    <p class="card-text">
+                        <strong>Blood Group:</strong> {{ donor.blood_group }}<br>
+                        <strong>Age:</strong> {{ donor.age }}<br>
+                        <strong>Gender:</strong> {{ donor.gender }}<br>
+                        <strong>Phone:</strong> {{ donor.phone }}<br>
+                        <strong>Last Donation Date:</strong> {{ donor.last_donation_date|date:"Y-m-d" }} <br>
+                        <strong>Availability:</strong>
+                        {% if donor.is_available %}
+                            <button class="btn btn-success">Available</button>
+                        {% else %}
+                            <button class="btn btn-danger" disabled>Unavailable</button>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

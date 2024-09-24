@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activate Your Account</title>
+</head>
+<body>
+    <p>Hello {{ user.username }},</p>
+    <p>Thank you for registering. Please click the link below to activate your account:</p>
+    <a href="{{ activation_url }}">Activate Your Account</a>
+    <p>If the above link doesn't work, copy and paste the following URL into your browser:</p>
+    <p>{{ activation_url }}</p>
+    <br>
+    <p>Thanks,<br>The Blood Donation Team</p>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Donor List</h2>
+
+    <!-- Filter Form -->
+    <form method="GET" action="{% url 'donor_list' %}" class="mb-4">
+        <div class="input-group">
+            <select class="form-select" name="blood_group">
+                <option value="">Select Blood Group</option>
+                {% for group, group_name in BLOOD_GROUPS %}
+                    <option value="{{ group }}" {% if selected_group == group %}selected{% endif %}>{{ group_name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </form>
+
+    <!-- Donor List Table -->
+    <table class="table table-hover">
+        <thead class="table-danger">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Blood Group</th>
+                <th scope="col">Last Donation Date</th>
+                <th scope="col">Availability</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for donor in donors %}
+            <tr>
+                <td>{{ donor.username }}</td>
+                <td>{{ donor.age }}</td>
+                <td>{{ donor.get_gender_display }}</td>
+                <td>{{ donor.phone }}</td>
+                <td>{{ donor.blood_group }}</td>
+                <td>{{ donor.last_donation_date }}</td>
+								<td>
+									{% if donor.is_available %}
+											<button class="btn btn-success">Available</button>
+									{% else %}
+											<button class="btn btn-danger" disabled>Unavailable</button>
+									{% endif %}
+							</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">User Profile</h2>
+
+		<hr>
+    
+    <!-- Unchangeable Information -->
+    <h4 class="text-center">Personal Info (Unchangeable)</h4>
+    <ul class="list-group mb-4">
+        <li class="list-group-item"><strong>Name:</strong> {{ user.username }}</li>
+        <li class="list-group-item"><strong>Age:</strong> {{ user.age }}</li>
+        <li class="list-group-item"><strong>Gender:</strong> {{ user.get_gender_display }}</li>
+        <li class="list-group-item"><strong>Blood Group:</strong> {{ user.get_blood_group_display }}</li>
+    </ul>
+<hr>
+    <!-- Update Form -->
+    <form method="POST">
+        {% csrf_token %}
+        <h4 class="text-center">Update Contact Info</h4>
+        <div class="form-group">
+            <label for="id_email">Email:</label>
+            <input type="email" name="email" value="{{ profile_form.email.value|default:user.email }}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="id_phone">Phone:</label>
+            <input type="text" name="phone" value="{{ profile_form.phone.value|default:user.phone }}" class="form-control" required>
+        </div>
+
+        <h4>Change Password</h4>
+        <div class="form-group">
+            <label for="id_old_password">Old Password:</label>
+            {{ password_form.old_password }}
+        </div>
+        <div class="form-group">
+            <label for="id_new_password1">New Password:</label>
+            {{ password_form.new_password1 }}
+        </div>
+        <div class="form-group">
+            <label for="id_new_password2">Confirm New Password:</label>
+            {{ password_form.new_password2 }}
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

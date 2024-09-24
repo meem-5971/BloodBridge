@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-danger text-center">Dashboard</h2>
+
+    <!-- Requests Table -->
+    <h4 class="text-black text-center">Blood Requests</h4>
+    <table class="table table-hover">
+        <thead class="table-danger">
+            <tr>
+                <th scope="col">Requester Name</th>
+                <th scope="col">Blood Group</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+				
+        <tbody>
+            {% for request in requests %}
+            <tr>
+                <td>{{ request.requester.username }}</td>
+                <td>{{ request.blood_group }}</td>
+                <td>{{ request.requester.phone }}</td>
+                <td>
+                    {% if request.status == 'Completed' %}
+                        <button class="btn btn-success" disabled>Completed</button>
+                    {% else %}
+                        <form method="POST" action="{% url 'accept_request' request.id %}">
+                            {% csrf_token %}
+                            <button class="btn btn-primary">Accept</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+		<hr>
+    <!-- Donation History -->
+    <h4 class="text-black text-center">Donation History</h4>
+    <table class="table table-hover">
+        <thead class="table-danger">
+            <tr>
+                <th scope="col">Recipient Name</th>
+                <th scope="col">Blood Group</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for donation in donation_history %}
+            <tr>
+                <td>{{ donation.recipient.username }}</td>
+                <td>{{ donation.recipient.blood_group }}</td>
+                <td>{{ donation.donation_date|date:"Y-m-d" }}</td> <!-- Formatting date -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
